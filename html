@@ -1,47 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-</head>
-<body>
-    <h1>Introduction</h1>
-    <p>Harry Potter is a fantasy book series written by British author J.K. Rowling<br>
-It follows the story of a young boy named Harry Potter, who discovers on his 11th birthday that he is a wizard.<br> He is invited to attend Hogwarts School of Witchcraft and Wizardry, where he learns about magic, makes close friends like Ron Weasley and Hermione Granger, and uncovers the dark truth about his past.
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Music Player</title>
 
-<br>Throughout the seven books, Harry faces the dark wizard Lord Voldemort, who murdered his parents and seeks to conquer both the magical and non-magical worlds.</p>
-<div class="trailer-box">
-  <iframe 
-    src="https://www.youtube.com/embed/VyHV0BRtdxo" 
-    title="Harry Potter Trailer"
-    frameborder="5"
-    allowfullscreen>
-  </iframe>
-</div>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .player {
+      background: rgba(255,255,255,0.1);
+      padding: 25px;
+      border-radius: 15px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    }
+
+    .cover {
+      width: 200px;
+      height: 200px;
+      margin: auto;
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin: 5px 0;
+    }
+
+    p {
+      margin: 0;
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    .controls {
+      margin-top: 15px;
+    }
+
+    button {
+      background: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="player">
+    <div class="cover">🎵</div>
+
+    <h2>Demo Song</h2>
+    <p>Unknown Artist</p>
+
+    <audio id="audio">
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="controls">
+      <button onclick="togglePlay()">▶ Play / ⏸ Pause</button>
+    </div>
+
+    <input type="range" id="progress" value="0">
+  </div>
+
+<script>
+  const audio = document.getElementById("audio");
+  const progress = document.getElementById("progress");
+
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }
+
+  audio.addEventListener("timeupdate", () => {
+    progress.value = (audio.currentTime / audio.duration) * 100 || 0;
+  });
+
+  progress.addEventListener("input", () => {
+    audio.currentTime = (progress.value / 100) * audio.duration;
+  });
+</script>
 
 </body>
 </html>
-<style>
-    body{
-        background-color: rgb(250, 251, 225);
-    }
-    h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 45px;
-  
-  font-weight: 700;
-  color: #874907;
-}
-   p{
-    font-size:30px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-weight: 300;
-   }
-   .trailer-box iframe {
-    width: 75%;
-    height: 100%;
-
-  }
-
-</style>
